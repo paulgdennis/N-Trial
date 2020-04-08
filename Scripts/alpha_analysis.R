@@ -2,8 +2,8 @@
 # the console it is read as a comment
 
 # install libraries - need only do once
-install.packages("sciplot")
-install.packages("vegan")
+# install.packages("sciplot")
+# install.packages("vegan")
 # load the library
 library(sciplot)
 library(vegan)

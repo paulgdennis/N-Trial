@@ -9,7 +9,7 @@ library(sciplot)
 library(vegan)
 
 # First thing is the read in the data
-data <- read.table('N-trial-data.csv', header = TRUE, sep=',')
+#data <- read.table('N-trial-data.csv', header = TRUE, sep=',')
 
 # this allows you to look at the data in a familiar excel like way
 View(data)

@@ -12,4 +12,10 @@ for(i in colnames(enzymes)) {
 
 
 library(sciplot)
+par(mfrow=c(3,2))
 bargraph.CI(data.all$Rate, enzymes$a.gluc)
+bargraph.CI(data.all$Rate, enzymes$B.gluc)
+bargraph.CI(data.all$Rate, enzymes$Phos)
+bargraph.CI(data.all$Rate, enzymes$Sulf)
+bargraph.CI(data.all$Rate, enzymes$Chit)
+bargraph.CI(data.all$Rate, enzymes$Xyl)

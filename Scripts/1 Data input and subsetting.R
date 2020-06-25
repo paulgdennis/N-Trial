@@ -21,3 +21,5 @@ nem.fun1 <- data.all[,c("Fu2", "Ba1", "Ba2", "Ba3", "Ca3", "Ca4", "Om4", "Ecto",
 nem.indices <- data.all[,c("Div.H", "MI", "PPI", "EI", "SI", "CI", "BF", "Det", "Pred.1", "Roots")]
 
 nem.troph <- data.all[,c("Para", "Fung", "Bact", "Pred", "Omn")]
+
+soil.chem <- data.all[,56:92]

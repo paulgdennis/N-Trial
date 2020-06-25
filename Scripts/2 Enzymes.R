@@ -1,5 +1,7 @@
 ### Enzymes
 
+source('Functions/Functions.R')
+
 for(i in colnames(enzymes)) {
   print(i)
   print(summary(aov(enzymes[,i] ~ data.all$Rate)))

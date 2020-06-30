@@ -24,6 +24,21 @@ for(i in colnames(soil.chem[-9,])) {
   print(adonis(sqrt(nem.taxa[-9,]) ~ soil.chem[-9,i], method = 'euc')[[1]][1,6])
   }
 
+library(mvabund)
+mvobj<-mvabund(nem.taxa[-9,])
+manyglmobj<-manyglm(mvobj
+                    ~ factor(soil.chem[-9,]))
+plot.manyglm(manyglmobj)
+print(summary(manyglmobj))
+
+for(i in colnames(soil.chem)) {
+  print(i)
+  mvobj<-mvabund(nem.taxa[-9,])
+  manyglmobj<-manyglm(mvobj
+                      ~ factor(soil.chem[-9,i]))
+  plot.manyglm(manyglmobj)
+  print(summary(manyglmobj))
+}
 
 
 adonis(sqrt(nem.taxa)~data.all$Rate, method='euc')

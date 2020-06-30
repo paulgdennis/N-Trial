@@ -2,6 +2,7 @@
 
 # For Paul
 #setwd("C:/Users/uqpdenni/Dropbox/Staff and Students/Masters/Alpha Gulanes/Field experiment/R/N-Trial")
+#setwd("C:/Users/cfors/Dropbox/Alpha/Field experiment/R/N-Trial")
 
 # Get the data into memory
 

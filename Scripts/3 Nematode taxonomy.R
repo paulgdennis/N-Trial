@@ -17,9 +17,26 @@ for(i in colnames(nem.taxa)) {
 summary(aov(data.all$taxa ~ data.all$Rate))
 
 
+
 # Beta diversity
 
 adonis(sqrt(nem.taxa) ~ data.all$Rate, method = 'euc')
+
+library(mvabund)
+mvobj<-mvabund(nem.taxa)
+manyglmobj<-manyglm(mvobj
+                    ~ factor(data.all$Rate))
+plot.manyglm(manyglmobj)
+print(summary(manyglmobj))
+
+for(i in colnames(nem.taxa)) {
+  print(i)
+  mvobj<-mvabund(nem.taxa[,i])
+  manyglmobj<-manyglm(mvobj
+                      ~ factor(data.all$Rate))
+  plot.manyglm(manyglmobj)
+  print(summary(manyglmobj))
+}
 
 # Visualise differences in community composition
 

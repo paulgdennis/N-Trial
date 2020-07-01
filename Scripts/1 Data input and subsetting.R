@@ -23,4 +23,4 @@ nem.indices <- data.all[,c("Div.H", "MI", "PPI", "EI", "SI", "CI", "BF", "Det", 
 
 nem.troph <- data.all[,c("Para", "Fung", "Bact", "Pred", "Omn")]
 
-soil.chem <- data.all[,56:92]
+soil.chem <- data.all[,56:93]

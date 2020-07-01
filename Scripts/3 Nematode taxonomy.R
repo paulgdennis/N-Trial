@@ -19,8 +19,22 @@ summary(aov(data.all$taxa ~ data.all$Rate))
 
 
 # Beta diversity
+Rate<-as.data.frame(data.all$Rate)
+rows<-c(1:6,7:12)
 
-adonis(sqrt(nem.taxa) ~ data.all$Rate, method = 'euc')
+adonis(sqrt(nem.taxa[rows,]) ~ Rate[rows,], method = 'euc')
+
+
+for(i in colnames(nem.taxa)) {
+  print(i)
+  print(summary(aov(sqrt(nem.taxa[,i]) ~ data.all$Rate)))
+}
+
+for(i in colnames(nem.taxa)) {
+  print(i)
+  print(TukeyHSD(aov(sqrt(nem.taxa[,i]) ~ factor(data.all$Rate))))
+}
+
 
 library(mvabund)
 mvobj<-mvabund(nem.taxa)

@@ -13,16 +13,6 @@ for(i in colnames(enzymes)) {
 }
 
 
-library(mvabund)
-for(i in colnames(enzymes)) {
-  print(i)
-  mvobj<-mvabund(enzymes[,i])
-  manyglmobj<-manyglm(mvobj
-                    ~ factor(data.all$Rate))
-
-  plot.manyglm(manyglmobj)
-  print(summary(manyglmobj))
-}
 
 library(sciplot)
 svg("C:/Users/cfors/Dropbox/Alpha/Field experiment/R/N-Trial/Plots/Enzme_barplots.svg")

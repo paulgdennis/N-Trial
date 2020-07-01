@@ -11,6 +11,6 @@ ggdensity(enzymes[,i],
 
 for(i in colnames(nem.taxa)) {
   print(i)
-  print(ggdensity(nem.taxa[,i],
+  print(ggdensity(sqrt(nem.taxa[,i]),
                   main = i))
 }

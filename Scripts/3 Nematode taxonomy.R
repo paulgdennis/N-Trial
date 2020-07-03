@@ -24,6 +24,8 @@ rows<-c(1:6,7:12)
 
 adonis(sqrt(nem.taxa[rows,]) ~ Rate[rows,], method = 'euc')
 
+summary(aov(data.all$Tot.Nem ~ data.all$Rate))
+TukeyHSD(aov(data.all$Tot.Nem ~ factor(data.all$Rate)))
 
 for(i in colnames(nem.taxa)) {
   print(i)

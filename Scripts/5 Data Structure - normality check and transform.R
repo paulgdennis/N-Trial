@@ -2,15 +2,8 @@
 library(ggplot2)
 library(ggpubr)
 
-for(i in colnames(nem.taxa)) {
+for(i in colnames(nem.troph)) {
   print(i)
-ggdensity(enzymes[,i], 
-          main = i,
-}
-
-
-for(i in colnames(nem.taxa)) {
-  print(i)
-  print(ggdensity(sqrt(nem.taxa[,i]),
+  print(ggdensity(sqrt(nem.troph[,i]),
                   main = i))
 }

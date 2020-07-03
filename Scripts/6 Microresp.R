@@ -64,4 +64,3 @@ summary(aov(Water$CO2 ~ Water$N.Rate))
 TukeyHSD(aov(Water$CO2  ~ factor(Water$N.Rate)))
 
 sink()
- 

@@ -25,38 +25,11 @@ for(i in colnames(soil.chem[-9,])) {
   print(adonis(sqrt(nem.taxa[-9,]) ~ soil.chem[-9,i], method = 'euc')[[1]][1,6])
   }
 
-adonis(sqrt(nem.taxa)~data.all$Rate, method='euc')
-
 for(i in colnames(soil.chem[-9,])) {
   print(i)
   print(adonis(sqrt(nem.taxa[-9,]) ~ Rate + soil.chem[-9,i], data = data.all[-9,], method='euc'))
 }
 plot(data.all$Rate, data.all$CEC)
-
-
-anova.cca(nem.taxa[-9,]~RateM[-9]+(soil.chem[-9,1]))
-
-library(mvabund)
-mvobj<-mvabund(nem.taxa[-9,])
-manyglmobj<-manyglm(mvobj
-                    ~ factor(soil.chem[-9,2]),composition=TRUE)
-plot.manyglm(manyglmobj)
-print(summary.manyglm(manyglmobj))
-
-manyglmobj<-manyglm(mvobj
-                    ~ factor(soil.chem[-9,2]))
-anova.manyglm(manyglmobj)
-
-for(i in colnames(soil.chem)) {
-  print(i)
-  mvobj<-mvabund(nem.taxa[-9,])
-  manyglmobj<-manyglm(mvobj
-                      ~ factor(soil.chem[-9,i]*RateM[-9,]))
-  plot.manyglm(manyglmobj)
-  #print(summary(manyglmobj))
-  print(anova.manyglm(manyglmobj))
-}
-
 
 
 for(i in colnames(soil.chem)) {
@@ -92,3 +65,31 @@ custom.plot.pcoa(ord = nem.taxa.pcoa, group = factor(data.all$Rate), title = "",
 
 nem.taxa.pca <- rda(sqrt(nem.taxa)) # PCA
 custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "n")
+
+
+#nem.fun1
+
+for(i in colnames(soil.chem[-9,])) {
+  print(i)
+  print(adonis(sqrt(nem.fun1[-9,]) ~ soil.chem[-9,i], method = 'euc')[[1]][1,6])
+}
+
+
+#nem.troph
+
+for(i in colnames(soil.chem[-9,])) {
+  print(i)
+  print(adonis(sqrt(nem.troph[-9,]) ~ soil.chem[-9,i], method = 'euc')[[1]][1,6])
+}
+
+
+#indecies
+for(i in colnames(nem.indices)) {
+  print(i)
+  print(summary(aov(nem.indices[,i] ~ data.all$Rate)))
+}
+
+for(i in colnames(nem.indices)) {
+  print(i)
+  print(TukeyHSD(aov(nem.indices[,i] ~ factor(data.all$Rate))))
+}

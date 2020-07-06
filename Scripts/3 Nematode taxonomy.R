@@ -17,7 +17,6 @@ for(i in colnames(nem.taxa)) {
 summary(aov(data.all$taxa ~ data.all$Rate))
 
 
-
 # Beta diversity
 
 adonis(sqrt(nem.taxa) ~ data.all$Rate, method = 'euc')
@@ -47,9 +46,13 @@ custom.plot.pcoa(ord = nem.taxa.pcoa, group = factor(data.all$Rate), title = "",
 nem.taxa.pca <- rda(sqrt(nem.taxa)) # PCA
 custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "n")
 
-#nem.fun1
+#Nematode function
+
+#Composition
 
 adonis(sqrt(nem.fun1) ~ data.all$Rate, method = 'euc')
+
+#Individual Species & Pairwise
 
 for(i in colnames(nem.fun1)) {
   print(i)
@@ -61,6 +64,8 @@ for(i in colnames(nem.fun1)) {
   print(TukeyHSD(aov(sqrt(nem.fun1[,i]) ~ factor(data.all$Rate))))
 }
 
+#Visualisations
+
 nem.fun1.rda <- rda(sqrt(nem.fun1) ~ data.all$Rate) # RDA
 custom.plot.rda(nem.fun1.rda, group = factor(data.all$Rate), title = "", plottype = "n", sd.val = 3, scaling.val = 2)
 
@@ -71,9 +76,14 @@ nem.fun1.pca <- rda(sqrt(nem.fun1)) # PCA
 custom.plot.pca(ord = nem.fun1.pca, group = factor(data.all$Rate), title = "", plottype = "n")
 
 
-#nem.troph
+#Nematode Troph
+
+#Composition
 
 adonis(sqrt(nem.troph) ~ data.all$Rate, method = 'euc')
+
+
+#Individual Species & Pairwise
 
 for(i in colnames(nem.troph)) {
   print(i)
@@ -85,6 +95,9 @@ for(i in colnames(nem.troph)) {
   print(TukeyHSD(aov(sqrt(nem.troph[,i]) ~ factor(data.all$Rate))))
 }
 
+
+#Visualisations
+
 nem.troph.rda <- rda(sqrt(nem.troph) ~ data.all$Rate) # RDA
 custom.plot.rda(nem.troph.rda, group = factor(data.all$Rate), title = "", plottype = "n", sd.val = 3, scaling.val = 2)
 
@@ -94,7 +107,7 @@ custom.plot.pcoa(ord = nem.troph.pcoa, group = factor(data.all$Rate), title = ""
 nem.troph.pca <- rda(sqrt(nem.troph)) # PCA
 custom.plot.pca(ord = nem.troph.pca, group = factor(data.all$Rate), title = "", plottype = "n")
 
-#indecies
+#Indecies
 
 for(i in colnames(nem.indices)) {
   print(i)

@@ -1,7 +1,9 @@
+#Microresp data, Not in a loop so individual ones can be quickly checked
+
 sink("Microresp.txt", type = "output")
 Ala<-microresp[1:30,]
-summary(aov(Ala$CO2 ~ Ala$N.Rate))
-TukeyHSD(aov(Ala$CO2  ~ factor(Ala$N.Rate)))
+summary(aov(Ala$CO2 ~ Ala$N.Rate)) #Overall Test
+TukeyHSD(aov(Ala$CO2  ~ factor(Ala$N.Rate))) #Pairwise
 
 Arab<-microresp[31:60,]
 summary(aov(Arab$CO2 ~ Arab$N.Rate))

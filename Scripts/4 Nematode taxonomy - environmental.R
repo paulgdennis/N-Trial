@@ -83,7 +83,8 @@ for(i in colnames(soil.chem[-9,])) {
 }
 
 
-#indecies
+#Indecies
+
 for(i in colnames(nem.indices)) {
   print(i)
   print(summary(aov(nem.indices[,i] ~ data.all$Rate)))

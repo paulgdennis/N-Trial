@@ -2,12 +2,16 @@
 
 # For Paul
 #setwd("C:/Users/uqpdenni/Dropbox/Staff and Students/Masters/Alpha Gulanes/Field experiment/R/N-Trial")
+
+#For Christian
 #setwd("C:/Users/cfors/Dropbox/Alpha/Field experiment/R/N-Trial")
 
 # Get the data into memory
 
 data.all <- read.table('Data/N_trial_data.csv', header = TRUE, sep=',')
 microresp <- read.table('Data/microresp.csv', header = TRUE, sep=',')
+
+microresp_cor <- read.table('Data/microresp_for_correlation_analysis.csv', header = TRUE, sep=',', row.names = 1)
 
 ## Subset various datasets
 

@@ -66,3 +66,13 @@ summary(aov(Water$CO2 ~ Water$N.Rate))
 TukeyHSD(aov(Water$CO2  ~ factor(Water$N.Rate)))
 
 sink()
+
+
+
+#PCoA
+source('Functions/Functions.R')
+corM <- cor(microresp_cor, method="pearson")
+
+correlation.pcoa <- pcoa(corM) 
+
+custom.plot.pcoa(ord = correlation.pcoa, group = factor(microresp$Substrate), title = "", plottype = "t")

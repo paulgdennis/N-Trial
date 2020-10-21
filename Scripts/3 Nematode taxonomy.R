@@ -9,6 +9,10 @@ for(i in colnames(nem.taxa)) {
   print(summary(aov(nem.taxa[,i] ~ data.all$Rate)))
 }
 
+for(i in colnames(nem.taxa)) {
+  print(i)
+  print(cld(lsmeans(aov(nem.taxa[,i] ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
+}
 
 ## Nematode diversity
 

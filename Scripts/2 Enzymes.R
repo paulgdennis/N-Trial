@@ -13,7 +13,6 @@ for(i in colnames(enzymes)) {
 }
 
 
-
 library(sciplot)
 svg("C:/Users/cfors/Dropbox/Alpha/Field experiment/R/N-Trial/Plots/Enzme_barplots.svg")
 par(mfrow=c(3,2))

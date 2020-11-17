@@ -13,6 +13,22 @@ microresp <- read.table('Data/microresp.csv', header = TRUE, sep=',')
 
 microresp_cor <- read.table('Data/microresp_for_correlation_analysis.csv', header = TRUE, sep=',', row.names = 1)
 
+# 16S
+otu.16S.all <- read.table('../../../../../../PhD/Belle Clarke/Data/N_trial_Curtis/16S/otu_16S_tax_10k.csv', header = TRUE, sep=',', row.names = 1)
+env.16S.all <- read.table('../../../../../../PhD/Belle Clarke/Data/N_trial_Curtis/16S/env_16S.csv', header = TRUE, sep=',', row.names = 1)
+
+taxonomy.16S <- data.frame(OTU = row.names(otu.16S.all), Taxonomy = otu.16S.all[,90])
+
+otu.16S <- t(otu.16S.all[,-90]/10000)
+
+# ITS
+otu.ITS.all <- read.table('../../../../../../PhD/Belle Clarke/Data/N_trial_Curtis/ITS/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
+env.ITS.all <- read.table('../../../../../../PhD/Belle Clarke/Data/N_trial_Curtis/ITS/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
+
+taxonomy.ITS <- data.frame(OTU = row.names(otu.ITS.all), Taxonomy = otu.ITS.all[,91])
+
+otu.ITS <- t(otu.ITS.all[,-91]/6700)
+
 ## Subset various datasets
 
 names(data.all)

@@ -8,6 +8,7 @@
 
 library(vegan)
 library(sciplot)
+library(multcomp)
 
 ## Axis percent 
 # Returns the percentage varation on ordination axes

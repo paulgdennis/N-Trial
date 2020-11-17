@@ -3,6 +3,7 @@ SoilChem <- read.table("Data/N_trial_data.csv", header = TRUE, sep=',')
 
 names(SoilChem)
 
+
 for(i in colnames(SoilChem[,56:92])){
   print(i)
   print(anova(lm(SoilChem[,i]~SoilChem$Rate)))
@@ -26,6 +27,7 @@ bargraph.CI(SoilChem$Rate, SoilChem$CEC,main="CEC")
 bargraph.CI(SoilChem$Rate, SoilChem$Ca.amm.ace,main="Calcium (Amm.acet.)Meq.100g")
 bargraph.CI(SoilChem$Rate, SoilChem$K.avail,main="Available Potassium")
 bargraph.CI(SoilChem$Rate, SoilChem$K.amm.ace,main="Potassium (Amm.acet.)Meq.100g")
+bargraph.CI(SoilChem$Rate, SoilChem$K.amm.ace.1,main="Potassium (Amm.acet.) %")
 
 # significant means (increasing with N dose)
 bargraph.CI(SoilChem$Rate, SoilChem$Al.ppm,main="Aluminum KCL (mg/kg)")

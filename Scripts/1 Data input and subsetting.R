@@ -44,3 +44,19 @@ nem.indices <- data.all[,c("Div.H", "MI", "PPI", "EI", "SI", "CI", "BF", "Det", 
 nem.troph <- data.all[,c("Para", "Fung", "Bact", "Pred", "Omn")]#composition
 
 soil.chem <- data.all[,56:93]
+
+otu.16S.soil <- otu.16S[env.16S.all$Compartment == "Soil",]
+otu.16S.endo <- otu.16S[env.16S.all$Compartment == "Endo",]
+otu.16S.ecto <- otu.16S[env.16S.all$Compartment == "Ecto",]
+
+env.16S.soil <- env.16S.all[env.16S.all$Compartment == "Soil",]
+env.16S.endo <- env.16S.all[env.16S.all$Compartment == "Endo",]
+env.16S.ecto <- env.16S.all[env.16S.all$Compartment == "Ecto",]
+
+otu.ITS.soil <- otu.ITS[env.ITS.all$Compartment == "Soil",]
+otu.ITS.endo <- otu.ITS[env.ITS.all$Compartment == "Endo",]
+otu.ITS.ecto <- otu.ITS[env.ITS.all$Compartment == "Ecto",]
+
+env.ITS.soil <- env.ITS.all[env.ITS.all$Compartment == "Soil",]
+env.ITS.endo <- env.ITS.all[env.ITS.all$Compartment == "Endo",]
+env.ITS.ecto <- env.ITS.all[env.ITS.all$Compartment == "Ecto",]

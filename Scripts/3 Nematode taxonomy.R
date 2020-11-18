@@ -1,7 +1,5 @@
 ### 3 Nematode taxa
 
-source('Functions/Functions.R')
-
 ## individual populations
 
 for(i in colnames(nem.taxa)) {

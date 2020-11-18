@@ -1,7 +1,5 @@
 # 9 Microbiome - Beta diversity analyses
 
-source('Functions/Functions.R')
-
 #### 16S
 
 # All
@@ -53,6 +51,7 @@ custom.plot.pca(otu.ITS.pca, env.ITS.all$Compartment, "", "n")
 otu.ITS.rda <- rda(sqrt(otu.ITS) ~ Compartment + factor(Rate), data=env.ITS.all)
 
 custom.plot.rda(otu.ITS.rda, factor(env.ITS.all$Rate), "", "n", 30, 3)
+custom.plot.rda(otu.ITS.rda, env.ITS.all$Compartment, "", "n", 30, 3)
 
 # Soil
 adonis(sqrt(otu.ITS.soil) ~ factor(Rate), data = env.ITS.soil, method='euc')
@@ -81,9 +80,48 @@ custom.plot.rda(otu.ITS.endo.rda, factor(env.ITS.endo$Rate), "", "n", 30, 3)
 
 
 
+# Fusarium oxysporum
+adonis(sqrt(otu.ITS.soil[,"Otu3"]) ~ factor(Rate), data = env.ITS.soil, method='euc')
+adonis(sqrt(otu.ITS.ecto[,"Otu3"]) ~ factor(Rate), data = env.ITS.ecto, method='euc')
+adonis(sqrt(otu.ITS.endo[,"Otu3"]) ~ factor(Rate), data = env.ITS.endo, method='euc')
+
+bargraph.CI(factor(env.ITS.soil$Rate), sqrt(otu.ITS.soil[,"Otu3"]), main="OTU3 F. oxysporum - Soil")
+bargraph.CI(factor(env.ITS.ecto$Rate), sqrt(otu.ITS.ecto[,"Otu3"]), main="OTU3 F. oxysporum - Ecto")
+bargraph.CI(factor(env.ITS.endo$Rate), sqrt(otu.ITS.endo[,"Otu3"]), main="OTU3 F. oxysporum - Endo")
+
+# Fusarium 
+adonis(sqrt(otu.ITS.soil[,"Otu25"]) ~ factor(Rate), data = env.ITS.soil, method='euc')
+adonis(sqrt(otu.ITS.ecto[,"Otu25"]) ~ factor(Rate), data = env.ITS.ecto, method='euc')
+adonis(sqrt(otu.ITS.endo[,"Otu25"]) ~ factor(Rate), data = env.ITS.endo, method='euc')
+
+bargraph.CI(factor(env.ITS.soil$Rate), sqrt(otu.ITS.soil[,"Otu3"]), main="OTU3 F. oxysporum - Soil")
+bargraph.CI(factor(env.ITS.ecto$Rate), sqrt(otu.ITS.ecto[,"Otu3"]), main="OTU3 F. oxysporum - Ecto")
+bargraph.CI(factor(env.ITS.endo$Rate), sqrt(otu.ITS.endo[,"Otu3"]), main="OTU3 F. oxysporum - Endo")
 
 
 
-adonis(sqrt(otu.ITS.soil) ~ Rate, data = env.ITS.soil, method='euc')
-adonis(sqrt(otu.ITS.ecto) ~ Rate, data = env.ITS.ecto, method='euc')
-adonis(sqrt(otu.ITS.endo) ~ Rate, data = env.ITS.endo, method='euc')
+bargraph.CI(factor(env.ITS.soil$Rate), sqrt(otu.ITS.soil[,"Otu84"]), main="OTU84 Fusarium unc. - Soil")
+bargraph.CI(factor(env.ITS.ecto$Rate), sqrt(otu.ITS.ecto[,"Otu84"]), main="OTU84 Fusarium unc. - Ecto")
+bargraph.CI(factor(env.ITS.endo$Rate), sqrt(otu.ITS.endo[,"Otu84"]), main="OTU84 Fusarium unc. - Endo")
+
+dotu <- c("Otu3","Otu136","Otu200","Otu135","Otu166","Otu6","Otu8","Otu25","Otu63","Otu84")
+
+summary(aov(sqrt(otu.ITS.soil[,"Otu3"]) ~ factor(env.ITS.soil$Rate)))
+summary(aov(sqrt(otu.ITS.ecto[,"Otu3"]) ~ factor(env.ITS.ecto$Rate)))
+summary(aov(sqrt(otu.ITS.endo[,"Otu3"]) ~ factor(env.ITS.endo$Rate)))
+
+for(i in dotu) {
+  print(i)
+  print(summary(aov(sqrt(otu.ITS.soil[,i]) ~ factor(env.ITS.soil$Rate))))
+}
+
+for(i in dotu) {
+  print(i)
+  print(summary(aov(sqrt(otu.ITS.ecto[,i]) ~ factor(env.ITS.ecto$Rate))))
+}
+
+for(i in dotu) {
+  print(i)
+  print(summary(aov(sqrt(otu.ITS.endo[,i]) ~ factor(env.ITS.endo$Rate))))
+}
+

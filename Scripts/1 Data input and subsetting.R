@@ -1,32 +1,26 @@
 ### 1. Data input and subsetting
 
-# For Paul
-#setwd("C:/Users/uqpdenni/Dropbox/Staff and Students/Masters/Alpha Gulanes/Field experiment/R/N-Trial")
-
-#For Christian
-#setwd("C:/Users/cfors/Dropbox/Alpha/Field experiment/R/N-Trial")
+# Load packages and custom functions for the R session
+source('Functions/Functions.R')
 
 # Get the data into memory
 
 data.all <- read.table('Data/N_trial_data.csv', header = TRUE, sep=',')
 microresp <- read.table('Data/microresp.csv', header = TRUE, sep=',')
-
 microresp_cor <- read.table('Data/microresp_for_correlation_analysis.csv', header = TRUE, sep=',', row.names = 1)
 
 # 16S
-otu.16S.all <- read.table('../../../../../../PhD/Belle Clarke/Data/N_trial_Curtis/16S/otu_16S_tax_10k.csv', header = TRUE, sep=',', row.names = 1)
-env.16S.all <- read.table('../../../../../../PhD/Belle Clarke/Data/N_trial_Curtis/16S/env_16S.csv', header = TRUE, sep=',', row.names = 1)
+otu.16S.all <- read.table('Data/otu_16S_tax_10k.csv', header = TRUE, sep=',', row.names = 1)
+env.16S.all <- read.table('Data/env_16S.csv', header = TRUE, sep=',', row.names = 1)
 
 taxonomy.16S <- data.frame(OTU = row.names(otu.16S.all), Taxonomy = otu.16S.all[,90])
-
 otu.16S <- t(otu.16S.all[,-90]/10000)
 
 # ITS
-otu.ITS.all <- read.table('../../../../../../PhD/Belle Clarke/Data/N_trial_Curtis/ITS/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
-env.ITS.all <- read.table('../../../../../../PhD/Belle Clarke/Data/N_trial_Curtis/ITS/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
+otu.ITS.all <- read.table('Data/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
+env.ITS.all <- read.table('Data/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
 
 taxonomy.ITS <- data.frame(OTU = row.names(otu.ITS.all), Taxonomy = otu.ITS.all[,91])
-
 otu.ITS <- t(otu.ITS.all[,-91]/6700)
 
 ## Subset various datasets
@@ -43,7 +37,10 @@ nem.indices <- data.all[,c("Div.H", "MI", "PPI", "EI", "SI", "CI", "BF", "Det", 
 
 nem.troph <- data.all[,c("Para", "Fung", "Bact", "Pred", "Omn")]#composition
 
-soil.chem <- data.all[,56:93]
+soil.chem.all <- data.all[-9,c(4,56:93)] # Ran out of soil for sample in row 9 hence all NAs
+
+soil.chem <- data.all[-9,c("pH.h2o","EC","CEC","TC","TN","CN","OrgC","Lab.C","NO3.N","Al.KCl","Ca.amm.ace",
+                         "Cl","Cu","Fe","K.amm.ace","Mg.amm.ace","Mn","Na.amm.ace","P.colwell","S","Zn")] # Ran out of soil for sample in row 9 hence all NAs
 
 otu.16S.soil <- otu.16S[env.16S.all$Compartment == "Soil",]
 otu.16S.endo <- otu.16S[env.16S.all$Compartment == "Endo",]

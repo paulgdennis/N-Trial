@@ -9,6 +9,9 @@
 library(vegan)
 library(sciplot)
 library(multcomp)
+library(lsmeans)
+library(multcompView)
+library(corrplot)
 
 ## Axis percent 
 # Returns the percentage varation on ordination axes

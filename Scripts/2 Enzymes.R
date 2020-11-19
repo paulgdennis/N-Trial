@@ -1,5 +1,12 @@
 ### Enzymes
 
+adonis(enzymes ~ factor(Rate), data=data.all, method='euc')
+
+enzymes.rda <- rda(enzymes ~ factor(Rate), data=data.all)
+custom.plot.rda(enzymes.rda, factor(data.all$Rate), "","n", 3, 3)
+plot(enzymes.rda, type='t', scaling=3)
+points(enzymes.rda, dis="sites", pch=21, bg = factor(data.all$Rate), cex=2, scaling=3)
+
 for(i in colnames(enzymes)) {
   print(i)
   print(summary(aov(enzymes[,i] ~ factor(data.all$Rate))))

@@ -1,24 +1,24 @@
 ### 1. Data input and subsetting
 
 # Load packages and custom functions for the R session
-source('Functions/Functions.R')
+source('Functions.R')
 
 # Get the data into memory
 
-data.all <- read.table('Data/N_trial_data.csv', header = TRUE, sep=',')
-microresp <- read.table('Data/microresp.csv', header = TRUE, sep=',')
-microresp_cor <- read.table('Data/microresp_for_correlation_analysis.csv', header = TRUE, sep=',', row.names = 1)
+data.all <- read.table('../Data/N_trial_data.csv', header = TRUE, sep=',')
+microresp <- read.table('../Data/microresp.csv', header = TRUE, sep=',')
+microresp_cor <- read.table('../Data/microresp_for_correlation_analysis.csv', header = TRUE, sep=',', row.names = 1)
 
 # 16S
-otu.16S.all <- read.table('Data/otu_16S_tax_10k.csv', header = TRUE, sep=',', row.names = 1)
-env.16S.all <- read.table('Data/env_16S.csv', header = TRUE, sep=',', row.names = 1)
+otu.16S.all <- read.table('../Data/otu_16S_tax_10k.csv', header = TRUE, sep=',', row.names = 1)
+env.16S.all <- read.table('../Data/env_16S.csv', header = TRUE, sep=',', row.names = 1)
 
 taxonomy.16S <- data.frame(OTU = row.names(otu.16S.all), Taxonomy = otu.16S.all[,90])
 otu.16S <- t(otu.16S.all[,-90]/10000)
 
 # ITS
-otu.ITS.all <- read.table('Data/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
-env.ITS.all <- read.table('Data/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
+otu.ITS.all <- read.table('../Data/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
+env.ITS.all <- read.table('../Data/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
 
 taxonomy.ITS <- data.frame(OTU = row.names(otu.ITS.all), Taxonomy = otu.ITS.all[,91])
 otu.ITS <- t(otu.ITS.all[,-91]/6700)

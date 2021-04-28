@@ -1,6 +1,6 @@
 # 9 Microbiome - Alpha diversity analyses
 
-source('Functions/Functions.R')
+source('Functions.R')
 
 # Alpha diversity
 
@@ -70,10 +70,10 @@ for(i in colnames(env.ITS.all[,5:8])) {
   print(summary(aov(env.ITS.all[,i] ~ env.ITS.all$Compartment * factor(env.ITS.all$Rate))))
 }
 
-#for(i in colnames(env.ITS.all[,5:8])) {
-#  print(i)
-#  print(cld(lsmeans(aov(env.ITS.all[,i] ~ factor(Rate), data= env.ITS.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
-#}
+for(i in colnames(env.ITS.all[,5:8])) {
+  print(i)
+  print(cld(lsmeans(aov(env.ITS.all[,i] ~ factor(Rate), data= env.ITS.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
+}
 
 for(i in colnames(env.ITS.soil[,5:8])) {
   print(i)

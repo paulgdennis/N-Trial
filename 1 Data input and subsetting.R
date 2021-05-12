@@ -23,6 +23,9 @@ env.ITS.all <- read.table('../Data/env_ITS.csv', header = TRUE, sep=',', row.nam
 taxonomy.ITS <- data.frame(OTU = row.names(otu.ITS.all), Taxonomy = otu.ITS.all[,91])
 otu.ITS <- t(otu.ITS.all[,-91]/6700)
 
+ITS.hm.tmp <- read.table('../Data/ITS/ITS_6700_heatmap.csv', header=TRUE, sep=',', row.names=1)
+ITS.hm <- as.matrix(ITS.hm.tmp/6700)
+
 ## Subset various datasets
 
 names(data.all)
@@ -57,6 +60,9 @@ otu.ITS.ecto <- otu.ITS[env.ITS.all$Compartment == "Ecto",]
 env.ITS.soil <- env.ITS.all[env.ITS.all$Compartment == "Soil",]
 env.ITS.endo <- env.ITS.all[env.ITS.all$Compartment == "Endo",]
 env.ITS.ecto <- env.ITS.all[env.ITS.all$Compartment == "Ecto",]
+
+
+
 
 ### Heatmap
 hm.16S.tmp <- (read.table('../Data/16S/otu.16S.hm.csv', header=TRUE, sep = ',', row.names = 1))

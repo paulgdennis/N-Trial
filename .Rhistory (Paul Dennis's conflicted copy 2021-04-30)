@@ -1,0 +1,512 @@
+env.16S.ecto <- env.16S.all[env.16S.all$Compartment == "Ecto",]
+env.ITS.soil <- env.ITS.all[env.ITS.all$Compartment == "Soil",]
+env.ITS.endo <- env.ITS.all[env.ITS.all$Compartment == "Endo",]
+env.ITS.ecto <- env.ITS.all[env.ITS.all$Compartment == "Ecto",]
+names(env.16S.all)
+bargraph.CI(env.16S.all$Compartment, env.16S.all$Sobs, env.16S.all$Rate, legend = TRUE)
+bargraph.CI(env.16S.soil$Rate, env.16S.soil$Sobs)
+for(i in colnames(env.16S.all[,5:9])) {
+print(i)
+print(summary(aov(env.16S.all[,i] ~ env.16S.all$Compartment * factor(env.16S.all$Rate))))
+}
+View(env.16S.all)
+for(i in colnames(env.16S.soil[,5:9])) {
+print(i)
+print(summary(aov(env.16S.soil[,i] ~ factor(env.16S.soil$Rate))))
+}
+bargraph.CI(env.16S.soil$Rate, env.16S.soil$Sobs)
+bargraph.CI(env.16S.soil$Rate, env.16S.soil$Chao1)
+bargraph.CI(env.16S.all$Compartment, env.16S.all$Sobs, env.16S.all$Rate, legend = TRUE)
+bargraph.CI(env.16S.all$Compartment, env.16S.all$Chao1, env.16S.all$Rate, legend = TRUE)
+bargraph.CI(env.16S.all$Compartment, env.16S.all$PD, env.16S.all$Rate, legend = TRUE)
+bargraph.CI(env.16S.all$Compartment, env.16S.all$Shan, env.16S.all$Rate, legend = TRUE)
+bargraph.CI(env.16S.all$Compartment, env.16S.all$Simp, env.16S.all$Rate, legend = TRUE)
+print(i)
+for(i in colnames(env.16S.ecto[,5:9])) {
+print(i)
+print(summary(aov(env.16S.ecto[,i] ~ factor(env.16S.ecto$Rate))))
+}
+bargraph.CI(env.16S.ecto$Rate, env.16S.ecto$Sobs)
+bargraph.CI(env.16S.ecto$Rate, env.16S.ecto$Chao1)
+bargraph.CI(env.16S.ecto$Rate, env.16S.ecto$PD)
+for(i in colnames(env.16S.endo[,5:9])) {
+print(i)
+print(summary(aov(env.16S.endo[,i] ~ factor(env.16S.endo$Rate))))
+}
+bargraph.CI(env.ITS.all$Compartment, env.ITS.all$Sobs, env.ITS.all$Rate, legend = TRUE)
+for(i in colnames(env.ITS.all[,5:8])) {
+print(i)
+print(cld(lsmeans(aov(env.ITS.all[,i] ~ factor(Rate), data= env.ITS.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
+}
+mypal <- colourRamPalette(c("Blue", "White"))
+mypal <- colorRamPalette(c("Blue", "White"))
+mypal <- colorRampPalette(c("Blue", "White"))
+mypal(o)
+mypal(0)
+pal <- colorRampPalette(c("Blue", "White"))
+View(mypal)
+del(mypal)
+rm(mypal)
+# Load packages and custom functions for the R session
+source('Functions.R')
+data.all <- read.table('../Data/N_trial_data.csv', header = TRUE, sep=',')
+# 16S
+otu.16S.all <- read.table('../Data/otu_16S_tax_10k.csv', header = TRUE, sep=',', row.names = 1)
+env.16S.all <- read.table('../Data/env_16S.csv', header = TRUE, sep=',', row.names = 1)
+taxonomy.16S <- data.frame(OTU = row.names(otu.16S.all), Taxonomy = otu.16S.all[,90])
+# ITS
+otu.ITS.all <- read.table('../Data/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
+env.ITS.all <- read.table('../Data/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
+taxonomy.ITS <- data.frame(OTU = row.names(otu.ITS.all), Taxonomy = otu.ITS.all[,91])
+env.16S.soil <- env.16S.all[env.16S.all$Compartment == "Soil",]
+env.16S.endo <- env.16S.all[env.16S.all$Compartment == "Endo",]
+env.16S.ecto <- env.16S.all[env.16S.all$Compartment == "Ecto",]
+env.ITS.soil <- env.ITS.all[env.ITS.all$Compartment == "Soil",]
+env.ITS.endo <- env.ITS.all[env.ITS.all$Compartment == "Endo",]
+env.ITS.ecto <- env.ITS.all[env.ITS.all$Compartment == "Ecto",]
+View(otu.16S.all)
+### 1. Data input and subsetting
+# Load packages and custom functions for the R session
+source('Functions.R')
+# Get the data into memory
+data.all <- read.table('../Data/N_trial_data.csv', header = TRUE, sep=',')
+microresp <- read.table('../Data/microresp.csv', header = TRUE, sep=',')
+microresp_cor <- read.table('../Data/microresp_for_correlation_analysis.csv', header = TRUE, sep=',', row.names = 1)
+# 16S
+otu.16S.all <- read.table('../Data/otu_16S_tax_10k.csv', header = TRUE, sep=',', row.names = 1)
+env.16S.all <- read.table('../Data/env_16S.csv', header = TRUE, sep=',', row.names = 1)
+taxonomy.16S <- data.frame(OTU = row.names(otu.16S.all), Taxonomy = otu.16S.all[,90])
+otu.16S <- t(otu.16S.all[,-90]/10000)
+# ITS
+otu.ITS.all <- read.table('../Data/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
+env.ITS.all <- read.table('../Data/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
+taxonomy.ITS <- data.frame(OTU = row.names(otu.ITS.all), Taxonomy = otu.ITS.all[,91])
+otu.ITS <- t(otu.ITS.all[,-91]/6700)
+## Subset various datasets
+names(data.all)
+enzymes <- data.all[,c("B.gluc", "Chit", "Sulf", "Phos", "a.gluc", "Xyl")]
+nem.taxa <- data.all[,c("Heli.d", "Roty.r", "Cric", "Tyl", "Aph", "Rhabd", "Pang", "Ceph", "Plect", "Monhy", "Trip", "Mono", "Doryl")]
+nem.fun1 <- data.all[,c("Fu2", "Ba1", "Ba2", "Ba3", "Ca3", "Ca4", "Om4", "Ecto", "Endo")]#composition
+nem.indices <- data.all[,c("Div.H", "MI", "PPI", "EI", "SI", "CI", "BF", "Det", "Pred.1", "Roots")]#univariate
+nem.troph <- data.all[,c("Para", "Fung", "Bact", "Pred", "Omn")]#composition
+soil.chem.all <- data.all[-9,c(4,56:93)] # Ran out of soil for sample in row 9 hence all NAs
+soil.chem <- data.all[-9,c("pH.h2o","EC","CEC","TC","TN","CN","OrgC","Lab.C","NO3.N","Al.KCl","Ca.amm.ace",
+"Cl","Cu","Fe","K.amm.ace","Mg.amm.ace","Mn","Na.amm.ace","P.colwell","S","Zn")] # Ran out of soil for sample in row 9 hence all NAs
+otu.16S.soil <- otu.16S[env.16S.all$Compartment == "Soil",]
+otu.16S.endo <- otu.16S[env.16S.all$Compartment == "Endo",]
+otu.16S.ecto <- otu.16S[env.16S.all$Compartment == "Ecto",]
+env.16S.soil <- env.16S.all[env.16S.all$Compartment == "Soil",]
+env.16S.endo <- env.16S.all[env.16S.all$Compartment == "Endo",]
+env.16S.ecto <- env.16S.all[env.16S.all$Compartment == "Ecto",]
+otu.ITS.soil <- otu.ITS[env.ITS.all$Compartment == "Soil",]
+otu.ITS.endo <- otu.ITS[env.ITS.all$Compartment == "Endo",]
+otu.ITS.ecto <- otu.ITS[env.ITS.all$Compartment == "Ecto",]
+env.ITS.soil <- env.ITS.all[env.ITS.all$Compartment == "Soil",]
+env.ITS.endo <- env.ITS.all[env.ITS.all$Compartment == "Endo",]
+env.ITS.ecto <- env.ITS.all[env.ITS.all$Compartment == "Ecto",]
+### Enzymes
+adonis(enzymes ~ factor(Rate), data=data.all, method='euc')
+enzymes.rda <- rda(enzymes ~ factor(Rate), data=data.all)
+custom.plot.rda(enzymes.rda, factor(data.all$Rate), "","n", 3, 3)
+plot(enzymes.rda, type='t', scaling=3)
+points(enzymes.rda, dis="sites", pch=21, bg = factor(data.all$Rate), cex=2, scaling=3)
+for(i in colnames(enzymes)) {
+print(i)
+print(summary(aov(enzymes[,i] ~ factor(data.all$Rate))))
+}
+for(i in colnames(enzymes)) {
+print(i)
+print(cld(lsmeans(aov(enzymes[,i] ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
+}
+#svg("C:/Users/cfors/Dropbox/Alpha/Field experiment/R/N-Trial/Plots/Enzyme_barplots.svg")
+#par(mfrow=c(3,2))
+bargraph.CI(data.all$Rate, enzymes$a.gluc)
+bargraph.CI(data.all$Rate, enzymes$B.gluc)
+bargraph.CI(data.all$Rate, enzymes$Phos)
+bargraph.CI(data.all$Rate, enzymes$Sulf)
+bargraph.CI(data.all$Rate, enzymes$Chit)
+bargraph.CI(data.all$Rate, enzymes$Xyl)
+#dev.off()
+plot(enzymes.rda, type='t', scaling=3)
+points(enzymes.rda, dis="sites", pch=21, bg = factor(data.all$Rate), cex=2, scaling=3)
+bargraph.CI(data.all$Rate, enzymes$Phos)
+for(i in colnames(nem.taxa)) {
+print(i)
+print(summary(aov(nem.taxa[,i] ~ data.all$Rate)))
+}
+summary(aov(data.all$taxa ~ data.all$Rate))
+adonis(sqrt(nem.taxa) ~ data.all$Rate, method = 'euc')
+adonis(sqrt(nem.taxa) ~ data.all$Rate, method = 'euc')
+summary(aov(data.all$Tot.Nem ~ data.all$Rate))
+bargraph.CI(data.all$Rate, data.all$Tot.Nem)
+bargraph.CI(data.all$Rate, data.all$Fung)
+for(i in colnames(nem.taxa)) {
+print(i)
+print(summary(aov(sqrt(nem.taxa[,i]) ~ data.all$Rate)))
+}
+summary(aov(data.all$taxa ~ data.all$Rate))
+summary(aov(data.all$Fung ~ data.all$Rate))
+summary(aov(data.all$Fung ~ factor(data.all$Rate))
+)
+summary(aov(data.all$Para ~ factor(data.all$Rate))
+)
+bargraph.CI(data.all$Rate, data.all$Para)
+source('Functions.R')
+bargraph.CI(env.16S.all$Compartment, env.16S.all$Sobs, env.16S.all$Rate, legend = TRUE)
+for(i in colnames(env.16S.all[,5:9])) {
+print(i)
+print(summary(aov(env.16S.all[,i] ~ env.16S.all$Compartment * factor(env.16S.all$Rate))))
+}
+# All
+adonis(sqrt(otu.16S) ~ Compartment * factor(Rate), data = env.16S.all, method='euc')
+otu.16S.pca <- rda(sqrt(otu.16S))
+custom.plot.pca(otu.16S.pca, factor(env.16S.all$Rate), "", "n")
+custom.plot.pca(otu.16S.pca, env.16S.all$Compartment, "", "n")
+otu.16S.rda <- rda(sqrt(otu.16S) ~ Compartment + factor(Rate), data=env.16S.all)
+custom.plot.rda(otu.16S.rda, factor(env.16S.all$Rate), "", "n", 30, 3)
+# Ecto
+adonis(sqrt(otu.16S.ecto) ~ factor(Rate), data = env.16S.ecto, method='euc')
+otu.16S.ecto.pca <- rda(sqrt(otu.16S.ecto))
+custom.plot.pca(otu.16S.ecto.pca, factor(env.16S.ecto$Rate), "", "n")
+# Endo
+adonis(sqrt(otu.16S.endo) ~ factor(Rate), data = env.16S.endo, method='euc')
+otu.16S.endo.pca <- rda(sqrt(otu.16S.endo))
+custom.plot.pca(otu.16S.endo.pca, factor(env.16S.endo$Rate), "", "n")
+otu.16S.endo.rda <- rda(sqrt(otu.16S.endo) ~ factor(Rate), data=env.16S.endo)
+custom.plot.rda(otu.16S.endo.rda, factor(env.16S.endo$Rate), "", "n", 30, 3)
+# All
+adonis(sqrt(otu.ITS) ~ Compartment * factor(Rate), data = env.ITS.all, method='euc')
+otu.ITS.pca <- rda(sqrt(otu.ITS))
+custom.plot.pca(otu.ITS.pca, factor(env.ITS.all$Rate), "", "n")
+custom.plot.pca(otu.ITS.pca, env.ITS.all$Compartment, "", "n")
+otu.ITS.rda <- rda(sqrt(otu.ITS) ~ Compartment + factor(Rate), data=env.ITS.all)
+custom.plot.rda(otu.ITS.rda, factor(env.ITS.all$Rate), "", "n", 30, 3)
+custom.plot.rda(otu.ITS.rda, env.ITS.all$Compartment, "", "n", 30, 3)
+# Soil
+adonis(sqrt(otu.ITS.soil) ~ factor(Rate), data = env.ITS.soil, method='euc')
+# Ecto
+adonis(sqrt(otu.ITS.ecto) ~ factor(Rate), data = env.ITS.ecto, method='euc')
+# Endo
+adonis(sqrt(otu.ITS.endo) ~ factor(Rate), data = env.ITS.endo, method='euc')
+otu.ITS.endo.rda <- rda(sqrt(otu.ITS.endo) ~ factor(Rate), data=env.ITS.endo)
+custom.plot.rda(otu.ITS.endo.rda, factor(env.ITS.endo$Rate), "", "n", 30, 3)
+# Fusarium oxysporum
+adonis(sqrt(otu.ITS.soil[,"Otu3"]) ~ factor(Rate), data = env.ITS.soil, method='euc')
+adonis(sqrt(otu.ITS.ecto[,"Otu3"]) ~ factor(Rate), data = env.ITS.ecto, method='euc')
+adonis(sqrt(otu.ITS.endo[,"Otu3"]) ~ factor(Rate), data = env.ITS.endo, method='euc')
+bargraph.CI(factor(env.ITS.soil$Rate), sqrt(otu.ITS.soil[,"Otu3"]), main="OTU3 F. oxysporum - Soil")
+bargraph.CI(factor(env.ITS.ecto$Rate), sqrt(otu.ITS.ecto[,"Otu3"]), main="OTU3 F. oxysporum - Ecto")
+bargraph.CI(factor(env.ITS.endo$Rate), sqrt(otu.ITS.endo[,"Otu3"]), main="OTU3 F. oxysporum - Endo")
+# Fusarium
+adonis(sqrt(otu.ITS.soil[,"Otu25"]) ~ factor(Rate), data = env.ITS.soil, method='euc')
+adonis(sqrt(otu.ITS.ecto[,"Otu25"]) ~ factor(Rate), data = env.ITS.ecto, method='euc')
+adonis(sqrt(otu.ITS.endo[,"Otu25"]) ~ factor(Rate), data = env.ITS.endo, method='euc')
+bargraph.CI(factor(env.ITS.soil$Rate), sqrt(otu.ITS.soil[,"Otu3"]), main="OTU3 F. oxysporum - Soil")
+bargraph.CI(factor(env.ITS.ecto$Rate), sqrt(otu.ITS.ecto[,"Otu3"]), main="OTU3 F. oxysporum - Ecto")
+bargraph.CI(factor(env.ITS.endo$Rate), sqrt(otu.ITS.endo[,"Otu3"]), main="OTU3 F. oxysporum - Endo")
+bargraph.CI(factor(env.ITS.soil$Rate), sqrt(otu.ITS.soil[,"Otu3"]), main="OTU3 F. oxysporum - Soil")
+bargraph.CI(factor(env.ITS.ecto$Rate), sqrt(otu.ITS.ecto[,"Otu3"]), main="OTU3 F. oxysporum - Ecto")
+bargraph.CI(factor(env.ITS.endo$Rate), sqrt(otu.ITS.endo[,"Otu3"]), main="OTU3 F. oxysporum - Endo")
+bargraph.CI(factor(env.ITS.soil$Rate), sqrt(otu.ITS.soil[,"Otu3"]), main="OTU3 F. oxysporum - Soil")
+bargraph.CI(factor(env.ITS.ecto$Rate), sqrt(otu.ITS.ecto[,"Otu3"]), main="OTU3 F. oxysporum - Ecto")
+bargraph.CI(factor(env.ITS.endo$Rate), sqrt(otu.ITS.endo[,"Otu3"]), main="OTU3 F. oxysporum - Endo")
+### 1. Data input and subsetting
+# Load packages and custom functions for the R session
+source('Functions.R')
+# Get the data into memory
+data.all <- read.table('../Data/N_trial_data.csv', header = TRUE, sep=',')
+microresp <- read.table('../Data/microresp.csv', header = TRUE, sep=',')
+microresp_cor <- read.table('../Data/microresp_for_correlation_analysis.csv', header = TRUE, sep=',', row.names = 1)
+# 16S
+otu.16S.all <- read.table('../Data/otu_16S_tax_10k.csv', header = TRUE, sep=',', row.names = 1)
+env.16S.all <- read.table('../Data/env_16S.csv', header = TRUE, sep=',', row.names = 1)
+taxonomy.16S <- data.frame(OTU = row.names(otu.16S.all), Taxonomy = otu.16S.all[,90])
+otu.16S <- t(otu.16S.all[,-90]/10000)
+# ITS
+otu.ITS.all <- read.table('../Data/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
+env.ITS.all <- read.table('../Data/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
+taxonomy.ITS <- data.frame(OTU = row.names(otu.ITS.all), Taxonomy = otu.ITS.all[,91])
+otu.ITS <- t(otu.ITS.all[,-91]/6700)
+## Subset various datasets
+names(data.all)
+enzymes <- data.all[,c("B.gluc", "Chit", "Sulf", "Phos", "a.gluc", "Xyl")]
+nem.taxa <- data.all[,c("Heli.d", "Roty.r", "Cric", "Tyl", "Aph", "Rhabd", "Pang", "Ceph", "Plect", "Monhy", "Trip", "Mono", "Doryl")]
+nem.fun1 <- data.all[,c("Fu2", "Ba1", "Ba2", "Ba3", "Ca3", "Ca4", "Om4", "Ecto", "Endo")]#composition
+nem.indices <- data.all[,c("Div.H", "MI", "PPI", "EI", "SI", "CI", "BF", "Det", "Pred.1", "Roots")]#univariate
+nem.troph <- data.all[,c("Para", "Fung", "Bact", "Pred", "Omn")]#composition
+soil.chem.all <- data.all[-9,c(4,56:93)] # Ran out of soil for sample in row 9 hence all NAs
+soil.chem <- data.all[-9,c("pH.h2o","EC","CEC","TC","TN","CN","OrgC","Lab.C","NO3.N","Al.KCl","Ca.amm.ace",
+"Cl","Cu","Fe","K.amm.ace","Mg.amm.ace","Mn","Na.amm.ace","P.colwell","S","Zn")] # Ran out of soil for sample in row 9 hence all NAs
+otu.16S.soil <- otu.16S[env.16S.all$Compartment == "Soil",]
+otu.16S.endo <- otu.16S[env.16S.all$Compartment == "Endo",]
+otu.16S.ecto <- otu.16S[env.16S.all$Compartment == "Ecto",]
+env.16S.soil <- env.16S.all[env.16S.all$Compartment == "Soil",]
+env.16S.endo <- env.16S.all[env.16S.all$Compartment == "Endo",]
+env.16S.ecto <- env.16S.all[env.16S.all$Compartment == "Ecto",]
+otu.ITS.soil <- otu.ITS[env.ITS.all$Compartment == "Soil",]
+otu.ITS.endo <- otu.ITS[env.ITS.all$Compartment == "Endo",]
+otu.ITS.ecto <- otu.ITS[env.ITS.all$Compartment == "Ecto",]
+env.ITS.soil <- env.ITS.all[env.ITS.all$Compartment == "Soil",]
+env.ITS.endo <- env.ITS.all[env.ITS.all$Compartment == "Endo",]
+env.ITS.ecto <- env.ITS.all[env.ITS.all$Compartment == "Ecto",]
+sqrt(1)
+sqrt(3)
+sqrt(9)
+sqrt(81)
+env
+data.all
+View(data.all)
+#svg("C:/Users/cfors/Dropbox/Alpha/Field experiment/R/N-Trial/Plots/Enzyme_barplots.svg")
+#par(mfrow=c(3,2))
+bargraph.CI(data.all$Rate, enzymes$a.gluc)
+bargraph.CI(data.all$Rate, enzymes$B.gluc)
+bargraph.CI(data.all$Rate, enzymes$Phos)
+bargraph.CI(data.all$Rate, enzymes$Sulf)
+bargraph.CI(data.all$Rate, enzymes$Chit)
+for(i in colnames(enzymes)) {
+print(i)
+print(summary(aov(enzymes[,i] ~ factor(data.all$Rate))))
+}
+for(i in colnames(enzymes)) {
+print(i)
+print(cld(lsmeans(aov(enzymes[,i] ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
+}
+for(i in colnames(enzymes)) {
+print(i)
+print(summary(aov(enzymes[,i] ~ factor(data.all$Rate))))
+}
+for(i in colnames(enzymes)) {
+print(i)
+print(cld(lsmeans(aov(enzymes[,i] ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
+}
+microresp
+microresp_cor
+names(microresp_cor)
+names(microresp_cor[,1:15])
+adonis(microresp_cor[,1:15] ~ factor(data.all$Rate), method='euc')
+for(i in names(microresp_cor[,1:15])){
+print(i)
+}
+for(i in names(microresp_cor[,1:15])){
+print(i)
+print(summary(aov(microresp_cor[,i] ~ factor(data.all$Rate))))
+}
+adonis(microresp_cor[,1:15] ~ factor(data.all$Rate), method='euc')
+adonis(enzymes ~ factor(Rate), data=data.all, method='euc')
+enzymes.rda <- rda(enzymes ~ factor(Rate), data=data.all)
+custom.plot.rda(enzymes.rda, factor(data.all$Rate), "","n", 3, 3)
+plot(enzymes.rda, type='t', scaling=3)
+enzymes.rda <- rda(enzymes)
+custom.plot.rda(enzymes.rda, factor(data.all$Rate), "","n", 3, 3)
+adonis(enzymes ~ factor(Rate), data=data.all, method='euc')
+enzymes.rda <- rda(enzymes ~ factor(Rate), data=data.all)
+custom.plot.rda(enzymes.rda, factor(data.all$Rate), "","n", 3, 3)
+enzymes.rda <- rda(enzymes ~ (Rate), data=data.all)
+custom.plot.rda(enzymes.rda, factor(data.all$Rate), "","n", 3, 3)
+enzymes.rda <- rda(enzymes ~ factor(Rate), data=data.all)
+custom.plot.rda(enzymes.rda, factor(data.all$Rate), "","n", 3, 3)
+plot(enzymes.rda, type='t', scaling=3)
+points(enzymes.rda, dis="sites", pch=21, bg = factor(data.all$Rate), cex=2, scaling=3)
+for(i in colnames(enzymes)) {
+print(i)
+print(summary(aov(enzymes[,i] ~ factor(data.all$Rate))))
+}
+for(i in colnames(enzymes)) {
+print(i)
+print(cld(lsmeans(aov(enzymes[,i] ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
+}
+bargraph.CI(data.all$Rate, enzymes$Phos)
+adonis(microresp_cor[,1:15] ~ factor(data.all$Rate), method='euc')
+summary(aov(data.all$Tot.Nem ~ factor(data.all$Rate))
+summary(aov(data.all$Tot.Nem ~ factor(data.all$Rate)))
+summary(aov(data.all$Tot.Nem ~ factor(data.all$Rate)))
+bargraph.CI(data.all$Rate, data.all$Tot.Nem)
+TukeyHSD(aov(data.all$Tot.Nem ~ factor(data.all$Rate)))
+cld(lsmeans(aov(data.all$Tot.Nem ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey"))
+TukeyHSD(aov(data.all$Tot.Nem ~ factor(data.all$Rate)))
+cld(lsmeans(aov(data.all$Tot.Nem ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey"))
+svg('../Data/Plots/Total_nematodes.svg')
+bargraph.CI(data.all$Rate, data.all$Tot.Nem)
+dev.off()
+summary(aov(data.all$Tot.Nem ~ factor(data.all$Rate)))
+for(i in names(nem.troph)){
+print(i)
+print(summary(aov(nem.troph[,i] ~ factor(data.all$Rate))))
+}
+bargraph.CI(data.all$Rate, nem.troph$Para)
+bargraph.CI(data.all$Rate, nem.troph$Fung)
+bargraph.CI(data.all$Rate, nem.troph$Bact)
+bargraph.CI(data.all$Rate, nem.troph$Pred)
+bargraph.CI(data.all$Rate, nem.troph$Omn)
+for(i in names(nem.troph)){
+print(i)
+print(cld(lsmeans(aov(nem.troph[,i] ~ factor(Rate), data= data.all),
+~ factor(Rate), Letters = letters, adjust = "Tukey")))
+}
+bargraph.CI(data.all$Rate, nem.troph$Fung)
+svg('../Data/Plots/Plant_parasitic_nematodes.svg')
+bargraph.CI(data.all$Rate, nem.troph$Para)
+dev.off()
+svg('../Data/Plots/Fungivorous_nematodes.svg')
+bargraph.CI(data.all$Rate, nem.troph$Fung)
+dev.off()
+svg('../Data/Plots/Bacterivorous_nematodes.svg')
+bargraph.CI(data.all$Rate, nem.troph$Bact)
+dev.off()
+svg('../Data/Plots/Predatory_nematodes.svg')
+bargraph.CI(data.all$Rate, nem.troph$Pred)
+dev.off()
+svg('../Data/Plots/Omnivorous_nematodes.svg')
+bargraph.CI(data.all$Rate, nem.troph$Omn)
+dev.off()
+for(i in colnames(nem.taxa)) {
+print(i)
+print(summary(aov(nem.taxa[,i] ~ data.all$Rate)))
+}
+adonis(sqrt(nem.taxa) ~ data.all$Rate, method = 'euc')
+nem.taxa
+decostand(nem.taxa,method = "Hellinger")
+decostand(nem.taxa,method = "hellinger")
+adonis(decostand(nem.taxa,method = "hellinger") ~ factor(data.all$Rate), method='euc')
+adonis(decostand(nem.taxa,method = "hellinger") ~ factor(data.all$Rate), method='euc')
+summary(aov(data.all$taxa ~ factor(data.all$Rate)))
+nem.taxa.rda <- rda(decostand(nem.taxa,method = "hellinger") ~ factor(data.all$Rate)) # RDA
+custom.plot.rda(nem.taxa.rda, group = factor(data.all$Rate), title = "", plottype = "n", sd.val = 3, scaling.val = 2)
+nem.taxa.pcoa <- pcoa(nem.taxa) # PCoA
+custom.plot.pcoa(ord = nem.taxa.pcoa, group = factor(data.all$Rate), title = "", plottype = "n")
+nem.taxa.pcoa <- pcoa(decostand(nem.taxa,method = "hellinger")) # PCoA
+custom.plot.pcoa(ord = nem.taxa.pcoa, group = factor(data.all$Rate), title = "", plottype = "n")
+nem.taxa.pca <- rda(decostand(nem.taxa,method = "hellinger")) # PCA
+custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "n")
+nem.taxa.pca <- rda(decostand(nem.taxa,method = "hellinger")) # PCA
+custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "t")
+nem.taxa.pcoa <- pcoa(decostand(nem.taxa,method = "hellinger")) # PCoA
+custom.plot.pcoa(ord = nem.taxa.pcoa, group = factor(data.all$Rate), title = "", plottype = "n")
+nem.taxa.pca <- rda(decostand(nem.taxa,method = "hellinger")) # PCA
+custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "t")
+plot(nem.taxa.pca)
+plot(nem.taxa.pca, scaling = 1)
+plot(nem.taxa.pca, scaling = 3)
+plot(nem.taxa.pca, scaling = 2)
+plot(nem.taxa.pca, scaling = -2)
+plot(nem.taxa.pca, scaling = -3)
+nem.taxa.rda <- rda(decostand(nem.taxa,method = "hellinger") ~ factor(data.all$Rate)) # RDA
+custom.plot.rda(nem.taxa.rda, group = factor(data.all$Rate), title = "", plottype = "t", sd.val = 3, scaling.val = 2)
+# Load packages and custom functions for the R session
+source('Functions.R')
+nem.taxa.pca <- rda(decostand(nem.taxa,method = "hellinger")) # PCA
+custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "t")
+#  _____                 _   _
+# |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
+# | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+# |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+# |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+#
+# Paul Dennis
+library(vegan)
+library(sciplot)
+library(multcomp)
+library(lsmeans)
+library(multcompView)
+library(corrplot)
+## Axis percent
+# Returns the percentage varation on ordination axes
+axis.percent <- function(ordination){
+round((100*eigenvals(ordination)[1:2]/ordination$tot.chi[[1]]),digits=2)
+}
+# END
+## pcoa
+# Makes a PCoA ordination object
+pcoa <- function(ord){
+cmdscale(dist(ord,'euc'), k=(nrow(ord)-1), eig=TRUE)
+}
+## axis.percent.pcoa
+# Returns the percentage varation on ordination axes
+axis.percent.pcoa <- function(ordination){
+round(as.vector(eigenvals(ordination)/sum(eigenvals(ordination)))[1:2]*100,digits=2)
+}
+## custom.plot.pcoa
+# Plots a PCoA ordination with group enrichment
+custom.plot.pcoa <- function(ord,group,title,plottype){
+ordiplot(scores(ord, choices=c(1,2)), type=plottype,
+xlab=paste("PCoA1 (",axis.percent.pcoa(
+ord)[[1]],"%)",sep=""),
+ylab=paste("PCoA2 (",axis.percent.pcoa(ord)[[2]],"%)",sep=""),
+main=title)
+ordiellipse(ord,group,
+kind='sd')
+#conf=0.95)
+points(ord$points, pch=21, cex=3, bg=factor(group))
+abline(h=0, lty=3)
+abline(v=0, lty=3)
+legend("topright",legend=unique(factor(group)),pch=19,col=unique(factor(group)))
+}
+## plot soil PCA - plots a pregenerated PCA ordination with groups for ellipses
+custom.plot.pca <- function(ord,group,title,plottype){
+plot(ord, type=plottype, scaling=-3,
+#xlim=c(-0.3,0.35), ylim=c(-0.4,0.4),
+xlab=paste("PC1 (",axis.percent(
+ord)[[1]],"%)",sep=""),
+ylab=paste("PC2 (",axis.percent(
+ord)[[2]],"%)",sep=""),
+main=title)
+#ordispider(ord, col='darkgrey',lty=3, scaling=3)
+ordiellipse(ord, group,col=group,lty=3, kind='sd', scaling=-3)
+points(ord,dis='sp',pch=4,col='grey',cex=0.6,scaling=-3)
+points(ord, dis='sites',pch=21,bg=group,cex=3,scaling=-3)
+legend("topright",legend=unique(factor(group)),pch=19,col=unique(factor(group)))
+}
+# END
+custom.plot.rda <- function(ord,group,title,plottype,sd.val,scaling.val){
+plot(ord, type=plottype, scaling=scaling.val,
+#xlim=c(-0.4,0.5), ylim=c(-0.4,0.4),
+xlab=paste("RDA1 (",axis.percent(
+ord)[[1]],"%)",sep=""),
+ylab=paste("RDA2 (",axis.percent(
+ord)[[2]],"%)",sep=""),
+main=title)
+#ordispider(ord, col=group,lty=3, scaling=scaling.val)
+ordiellipse(ord, group, col=group, lty=3, kind='sd', scaling=scaling.val)
+points(ord,dis='sp',pch=4,col='grey',cex=0.6,scaling=scaling.val)
+points(scores(ord,scaling=scaling.val)$sp[which(scores(ord)$sp[,1] > sd.val * sd(scores(ord)$sp[,1])),],pch=4,col='blue',cex=1)
+points(scores(ord,scaling=scaling.val)$sp[which(scores(ord)$sp[,1] < 0 - (sd.val * sd(scores(ord)$sp[,1]))),],pch=4,col='blue',cex=1)
+points(scores(ord,scaling=scaling.val)$sp[which(scores(ord)$sp[,2] > sd.val * sd(scores(ord)$sp[,2])),],pch=4,col='blue',cex=1)
+points(scores(ord,scaling=scaling.val)$sp[which(scores(ord)$sp[,2] < 0 - (sd.val * sd(scores(ord)$sp[,2]))),],pch=4,col='blue',cex=1)
+#text(scores(ord,scaling=scaling.val)$sp[names(which(scores(ord)$sp[,1] > sd.val * sd(scores(ord)$sp[,1]))),],cex=0.8)
+#text(scores(ord,scaling=scaling.val)$sp[names(which(scores(ord)$sp[,1] < 0 - (sd.val * sd(scores(ord)$sp[,1])))),],cex=0.8)
+#text(scores(ord,scaling=scaling.val)$sp[names(which(scores(ord)$sp[,2] > sd.val * sd(scores(ord)$sp[,2]))),],cex=0.8)
+#text(scores(ord,scaling=scaling.val)$sp[names(which(scores(ord)$sp[,2] < 0 - (sd.val * sd(scores(ord)$sp[,2])))),],cex=0.8)
+points(ord, dis='sites',pch=21,bg=group,cex=3,scaling=scaling.val)
+legend("topright",legend=unique(factor(group)),pch=19,col=unique(factor(group)))
+}
+# END
+#### Calculate the p values within a correlogram
+# mat : is a matrix of data
+# ... : further arguments to pass to the native R cor.test function
+cor.mtest <- function(mat, ...) {
+mat <- as.matrix(mat)
+n <- ncol(mat)
+p.mat<- matrix(NA, n, n)
+diag(p.mat) <- 0
+for (i in 1:(n - 1)) {
+for (j in (i + 1):n) {
+tmp <- cor.test(mat[, i], mat[, j], ...)
+p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
+}
+}
+colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
+p.mat
+}
+nem.taxa.pca <- rda(decostand(nem.taxa,method = "hellinger")) # PCA
+custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "t")
+plot(nem.taxa.pca, scaling = -3)
+custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "t")
+svg('../Data/Plots/Nematode_PCA.svg')
+custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "t")
+dev.off()
+print(i)
+print(summary(aov(nem.troph[,i] ~ factor(data.all$Rate))))
+for(i in names(nem.troph)){
+print(i)
+print(summary(aov(nem.troph[,i] ~ factor(data.all$Rate))))
+}

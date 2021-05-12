@@ -12,6 +12,9 @@ library(multcomp)
 library(lsmeans)
 library(multcompView)
 library(corrplot)
+library(gplots)
+library(ggplot2)
+
 
 ## Axis percent 
 # Returns the percentage varation on ordination axes
@@ -59,7 +62,7 @@ custom.plot.pcoa <- function(ord,group,title,plottype){
 ## plot soil PCA - plots a pregenerated PCA ordination with groups for ellipses	
 
 custom.plot.pca <- function(ord,group,title,plottype){
-  plot(ord, type=plottype, scaling=3, 
+  plot(ord, type=plottype, scaling=-3, 
        #xlim=c(-0.3,0.35), ylim=c(-0.4,0.4),
        xlab=paste("PC1 (",axis.percent(
          ord)[[1]],"%)",sep=""),
@@ -67,9 +70,9 @@ custom.plot.pca <- function(ord,group,title,plottype){
          ord)[[2]],"%)",sep=""),
        main=title)
   #ordispider(ord, col='darkgrey',lty=3, scaling=3)
-  ordiellipse(ord, group,col=group,lty=3, kind='sd', scaling=3)
-  points(ord,dis='sp',pch=4,col='grey',cex=0.6,scaling=3)
-  points(ord, dis='sites',pch=21,bg=group,cex=3,scaling=3)
+  ordiellipse(ord, group,col=group,lty=3, kind='sd', scaling=-3)
+  points(ord,dis='sp',pch=4,col='grey',cex=0.6,scaling=-3)
+  points(ord, dis='sites',pch=21,bg=group,cex=3,scaling=-3)
   legend("topright",legend=unique(factor(group)),pch=19,col=unique(factor(group)))
 }
 

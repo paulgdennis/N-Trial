@@ -79,9 +79,10 @@ custom.plot.rda(otu.ITS.endo.rda, factor(env.ITS.endo$Rate), "", "n", 30, 3)
 
 #Heatmap
 
-pal <- colorRampPalette(c("Blue", "White"))
-heatmap()
-
+pal <- colorRampPalette(c("White", "Black"))
+jpeg("../Data/16S/Heatmap.jpeg")
+heatmap(sqrt(otu.16S.hm), Colv = NA, Rowv = NA, trace = "none", scale = "none", col = pal(250))
+dev.off()
       
 # Fusarium oxysporum
 adonis(sqrt(otu.ITS.soil[,"Otu3"]) ~ factor(Rate), data = env.ITS.soil, method='euc')

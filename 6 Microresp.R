@@ -1,3 +1,15 @@
+### Microresp
+
+
+adonis(microresp_cor[,1:15] ~ factor(data.all$Rate), method='euc')
+
+
+for(i in names(microresp_cor[,1:15])){
+  print(i)
+  print(summary(aov(microresp_cor[,i] ~ factor(data.all$Rate))))
+  print(summary(aov(microresp_cor[,i] ~ factor(data.all$Rate))))
+}
+
 #Microresp data, Not in a loop so individual ones can be quickly checked
 
 sink("Microresp.txt", type = "output")

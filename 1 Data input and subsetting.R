@@ -57,3 +57,12 @@ otu.ITS.ecto <- otu.ITS[env.ITS.all$Compartment == "Ecto",]
 env.ITS.soil <- env.ITS.all[env.ITS.all$Compartment == "Soil",]
 env.ITS.endo <- env.ITS.all[env.ITS.all$Compartment == "Endo",]
 env.ITS.ecto <- env.ITS.all[env.ITS.all$Compartment == "Ecto",]
+
+### Heatmap
+hm.16S.tmp <- (read.table('../Data/16S/otu.16S.hm.csv', header=TRUE, sep = ',', row.names = 1))
+otu.16S.hm <- as.matrix(hm.16S.tmp[,-dim(hm.16S.tmp)[2]]/10000)
+taxa.names.16S.hm <- hm.16S.tmp$Tax
+
+
+#hm.ITS.tmp <- (readtable('../Data/ITS/'))
+

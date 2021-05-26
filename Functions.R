@@ -10,7 +10,7 @@ library(vegan)
 library(sciplot)
 library(multcomp)
 library(lsmeans)
-library(multcompView)
+library(multcompView) # not available in current version of R
 library(corrplot)
 library(gplots)
 library(ggplot2)

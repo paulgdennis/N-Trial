@@ -16,6 +16,12 @@ env.16S.all <- read.table('../Data/env_16S.csv', header = TRUE, sep=',', row.nam
 taxonomy.16S <- data.frame(OTU = row.names(otu.16S.all), Taxonomy = otu.16S.all[,90])
 otu.16S <- t(otu.16S.all[,-90]/10000)
 
+hm.16S.tmp <- read.csv('../Data/16S/16S_heatmap_1.5%.csv', header=TRUE, sep=',', row.names = 1)
+hm.16S <- as.matrix(hm.16S.tmp/10000)
+
+w.unifrac.16S.all.tmp <- read.table('../Data/16S/weighted_unifrac.csv', header = TRUE, sep=',', row.names = 1)
+w.unifrac.16s.all <- as.matrix(w.unifrac.16S.all.tmp)
+
 # ITS
 otu.ITS.all <- read.table('../Data/otu_ITS_tax_6700.csv', header = TRUE, sep=',', row.names = 1)
 env.ITS.all <- read.table('../Data/env_ITS.csv', header = TRUE, sep=',', row.names = 1)
@@ -23,7 +29,7 @@ env.ITS.all <- read.table('../Data/env_ITS.csv', header = TRUE, sep=',', row.nam
 taxonomy.ITS <- data.frame(OTU = row.names(otu.ITS.all), Taxonomy = otu.ITS.all[,91])
 otu.ITS <- t(otu.ITS.all[,-91]/6700)
 
-ITS.hm.tmp <- read.table('../Data/ITS/ITS_6700_heatmap.csv', header=TRUE, sep=',', row.names=1)
+ITS.hm.tmp <- read.table('../Data/ITS/ITS_6700_heatmap_2.5.csv', header=TRUE, sep=',', row.names =1)
 ITS.hm <- as.matrix(ITS.hm.tmp/6700)
 
 ## Subset various datasets
@@ -60,15 +66,4 @@ otu.ITS.ecto <- otu.ITS[env.ITS.all$Compartment == "Ecto",]
 env.ITS.soil <- env.ITS.all[env.ITS.all$Compartment == "Soil",]
 env.ITS.endo <- env.ITS.all[env.ITS.all$Compartment == "Endo",]
 env.ITS.ecto <- env.ITS.all[env.ITS.all$Compartment == "Ecto",]
-
-
-
-
-### Heatmap
-hm.16S.tmp <- (read.table('../Data/16S/otu.16S.hm.csv', header=TRUE, sep = ',', row.names = 1))
-otu.16S.hm <- as.matrix(hm.16S.tmp[,-dim(hm.16S.tmp)[2]]/10000)
-taxa.names.16S.hm <- hm.16S.tmp$Tax
-
-
-#hm.ITS.tmp <- (readtable('../Data/ITS/'))
 

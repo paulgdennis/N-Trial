@@ -1,5 +1,5 @@
 # 9 Microbiome - Beta diversity analyses
-
+#4 ordinations fo beta diversity as a figure - all and then each of the 3 
 #### 16S
 
 # All
@@ -7,11 +7,14 @@ adonis(sqrt(otu.16S) ~ Compartment * factor(Rate), data = env.16S.all, method='e
 
 otu.16S.pca <- rda(sqrt(otu.16S))
 custom.plot.pca(otu.16S.pca, factor(env.16S.all$Rate), "", "n")
-custom.plot.pca(otu.16S.pca, env.16S.all$Compartment, "", "n")
+custom.plot.pca(otu.16S.pca, factor(env.16S.all$Compartment), "", "n")
 
 otu.16S.rda <- rda(sqrt(otu.16S) ~ Compartment + factor(Rate), data=env.16S.all)
+#use this one:
+custom.plot.rda(otu.16S.rda, factor(env.16S.all$Compartment), "", "n", 30, 3)
+belle.plot.rda(otu.16S.rda, factor(env.16S.all$Compartment), "", "n", 30, 3)
 
-custom.plot.rda(otu.16S.rda, factor(env.16S.all$Rate), "", "n", 30, 3)
+adonis(w.unifrac.16s.all ~ Compartment * factor(Rate), data = env.16S.all, method='euc')
 
 # Soil
 adonis(sqrt(otu.16S.soil) ~ factor(Rate), data = env.16S.soil, method='euc')
@@ -21,12 +24,14 @@ custom.plot.pca(otu.16S.soil.pca, factor(env.16S.soil$Rate), "", "n")
 
 otu.16S.soil.rda <- rda(sqrt(otu.16S.soil) ~ factor(Rate), data=env.16S.soil)
 custom.plot.rda(otu.16S.soil.rda, factor(env.16S.soil$Rate), "", "n", 30, 3)
+belle.plot.rda(otu.16S.soil.rda, factor(env.16S.soil$Rate), "", "n", 30, 3)
 
 # Ecto
 adonis(sqrt(otu.16S.ecto) ~ factor(Rate), data = env.16S.ecto, method='euc')
 
 otu.16S.ecto.pca <- rda(sqrt(otu.16S.ecto))
 custom.plot.pca(otu.16S.ecto.pca, factor(env.16S.ecto$Rate), "", "n")
+belle.plot.pca(otu.16S.ecto.pca, factor(env.16S.ecto$Rate), "", "n")
 
 # Endo
 adonis(sqrt(otu.16S.endo) ~ factor(Rate), data = env.16S.endo, method='euc')
@@ -36,7 +41,7 @@ custom.plot.pca(otu.16S.endo.pca, factor(env.16S.endo$Rate), "", "n")
 
 otu.16S.endo.rda <- rda(sqrt(otu.16S.endo) ~ factor(Rate), data=env.16S.endo)
 custom.plot.rda(otu.16S.endo.rda, factor(env.16S.endo$Rate), "", "n", 30, 3)
-
+belle.plot.rda(otu.16S.endo.rda, factor(env.16S.endo$Rate), "", "n", 30, 3)
 
 
 ### ITS
@@ -83,14 +88,14 @@ custom.plot.rda(otu.ITS.endo.rda, factor(env.ITS.endo$Rate), "", "n", 30, 3)
 ### Heatmap
 
 mypal <- colorRampPalette(c("White","Black"))
-svg("../ITS_heatmap.svg")
+svg("../Data/ITS_heatmap.svg")
 heatmap(sqrt(ITS.hm), col = mypal(256), Rowv = NA, Colv = NA, revC = TRUE, scale = "none")
 dev.off()
 
-#pal <- colorRampPalette(c("White", "Black"))
-#jpeg("../Data/16S/Heatmap.jpeg")
-#heatmap(sqrt(otu.16S.hm), Colv = NA, Rowv = NA, trace = "none", scale = "none", col = pal(250))
-#dev.off()
+pal <- colorRampPalette(c("White", "Black"))
+svg("../Data/16S_heatmap2.svg")
+heatmap(sqrt(hm.16S), Colv = NA, Rowv = NA, revC = TRUE, scale = "none", col = pal(256))
+dev.off()
       
 # Fusarium oxysporum
 adonis(sqrt(otu.ITS.soil[,"Otu3"]) ~ factor(Rate), data = env.ITS.soil, method='euc')

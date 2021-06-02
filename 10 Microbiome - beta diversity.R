@@ -1,5 +1,5 @@
 # 9 Microbiome - Beta diversity analyses
-#4 ordinations fo beta diversity as a figure - all and then each of the 3 
+#4 ordinations of beta diversity as a figure - all and then each of the 3 
 #### 16S
 
 # All
@@ -12,7 +12,10 @@ custom.plot.pca(otu.16S.pca, factor(env.16S.all$Compartment), "", "n")
 otu.16S.rda <- rda(sqrt(otu.16S) ~ Compartment + factor(Rate), data=env.16S.all)
 #use this one:
 custom.plot.rda(otu.16S.rda, factor(env.16S.all$Compartment), "", "n", 30, 3)
+
+svg("../Data/Figures/rda_compartment_16S_otu.svg")
 belle.plot.rda(otu.16S.rda, factor(env.16S.all$Compartment), "", "n", 30, 3)
+dev.off()
 
 adonis(w.unifrac.16s.all ~ Compartment * factor(Rate), data = env.16S.all, method='euc')
 
@@ -24,14 +27,20 @@ custom.plot.pca(otu.16S.soil.pca, factor(env.16S.soil$Rate), "", "n")
 
 otu.16S.soil.rda <- rda(sqrt(otu.16S.soil) ~ factor(Rate), data=env.16S.soil)
 custom.plot.rda(otu.16S.soil.rda, factor(env.16S.soil$Rate), "", "n", 30, 3)
+
+svg("../Data/Figures/rda_soil_rates.svg")
 belle.plot.rda(otu.16S.soil.rda, factor(env.16S.soil$Rate), "", "n", 30, 3)
+dev.off()
 
 # Ecto
 adonis(sqrt(otu.16S.ecto) ~ factor(Rate), data = env.16S.ecto, method='euc')
 
 otu.16S.ecto.pca <- rda(sqrt(otu.16S.ecto))
 custom.plot.pca(otu.16S.ecto.pca, factor(env.16S.ecto$Rate), "", "n")
+
+svg("../Data/Figures/rda_ecto_rates.svg")
 belle.plot.pca(otu.16S.ecto.pca, factor(env.16S.ecto$Rate), "", "n")
+dev.off()
 
 # Endo
 adonis(sqrt(otu.16S.endo) ~ factor(Rate), data = env.16S.endo, method='euc')
@@ -41,8 +50,10 @@ custom.plot.pca(otu.16S.endo.pca, factor(env.16S.endo$Rate), "", "n")
 
 otu.16S.endo.rda <- rda(sqrt(otu.16S.endo) ~ factor(Rate), data=env.16S.endo)
 custom.plot.rda(otu.16S.endo.rda, factor(env.16S.endo$Rate), "", "n", 30, 3)
-belle.plot.rda(otu.16S.endo.rda, factor(env.16S.endo$Rate), "", "n", 30, 3)
 
+svg("../Data/Figures/rda_endo_rates.svg")
+belle.plot.rda(otu.16S.endo.rda, factor(env.16S.endo$Rate), "", "n", 30, 3)
+dev.off()
 
 ### ITS
 
@@ -58,6 +69,10 @@ otu.ITS.rda <- rda(sqrt(otu.ITS) ~ Compartment + factor(Rate), data=env.ITS.all)
 custom.plot.rda(otu.ITS.rda, factor(env.ITS.all$Rate), "", "n", 30, 3)
 custom.plot.rda(otu.ITS.rda, env.ITS.all$Compartment, "", "n", 30, 3)
 
+svg("../Data/Figures/rda_compartment_ITS.svg")
+belle.plot.rda(otu.ITS.rda, factor(env.ITS.all$Rate), "", "n", 30, 3)
+dev.off()
+
 # Soil
 adonis(sqrt(otu.ITS.soil) ~ factor(Rate), data = env.ITS.soil, method='euc')
 
@@ -67,11 +82,19 @@ custom.plot.pca(otu.ITS.soil.pca, factor(env.ITS.soil$Rate), "", "n")
 otu.ITS.soil.rda <- rda(sqrt(otu.ITS.soil) ~ factor(Rate), data=env.ITS.soil)
 custom.plot.rda(otu.ITS.soil.rda, factor(env.ITS.soil$Rate), "", "n", 30, 3)
 
+svg("../Data/Figures/rda_Soil_ITS.svg")
+belle.plot.rda(otu.ITS.soil.rda, factor(env.ITS.soil$Rate), "", "n", 30, 3)
+dev.off()
+
 # Ecto
 adonis(sqrt(otu.ITS.ecto) ~ factor(Rate), data = env.ITS.ecto, method='euc')
 
 otu.ITS.ecto.pca <- rda(sqrt(otu.ITS.ecto))
 custom.plot.pca(otu.ITS.ecto.pca, factor(env.ITS.ecto$Rate), "", "n")
+
+svg("../Data/Figures/rda_Ecto_ITS.svg")
+belle.plot.pca(otu.ITS.ecto.pca, factor(env.ITS.ecto$Rate), "", "n")
+dev.off()
 
 # Endo
 adonis(sqrt(otu.ITS.endo) ~ factor(Rate), data = env.ITS.endo, method='euc')
@@ -82,8 +105,34 @@ custom.plot.pca(otu.ITS.endo.pca, factor(env.ITS.endo$Rate), "", "n")
 otu.ITS.endo.rda <- rda(sqrt(otu.ITS.endo) ~ factor(Rate), data=env.ITS.endo)
 custom.plot.rda(otu.ITS.endo.rda, factor(env.ITS.endo$Rate), "", "n", 30, 3)
 
+svg("../Data/Figures/rda_endo_ITS.svg")
+belle.plot.rda(otu.ITS.endo.rda, factor(env.ITS.endo$Rate), "", "n", 30, 3)
+dev.off()
 
 
+###mvabund
+library(mvabund)
+
+##16S
+otu.16S.mvabund <- otu.16S[,which(apply(otu.16S*10000,2,max)>=5)]*10000
+mod.16S <- manyglm(otu.16S.mvabund ~ env.16S.all$Compartment * factor(env.16S.all$Rate), family = "negative_binomial")
+plot(mod.16S)
+
+mod.16S.out <- anova(mod.16S, p.uni = "adjusted")
+write.csv(mod.16S.out$table,"../Data/16S/16S.mvabund.table.csv")
+write.csv(mod.16S.out$uni.test,"../Data/16S/16S.mvabund.uni.test.csv")
+write.csv(mod.16S.out$uni.p,"../Data/16S/16S.mvabund.uni.p.csv")
+
+##ITS
+
+otu.ITS.mvabund <- otu.ITS[,which(apply(otu.ITS*6700,2,max)>=5)]*6700
+mod.ITS <- manyglm(otu.ITS.mvabund ~ env.ITS.all$Compartment * factor(env.ITS.all$Rate), family = "negative_binomial")
+plot(mod.ITS)
+
+mod.ITS.out <- anova(mod.ITS, p.uni = "adjusted")
+write.csv(mod.ITS.out$table,"../Data/ITS/ITS.mvabund.table.csv")
+write.csv(mod.ITS.out$uni.test,"../Data/ITS/ITS.mvabund.uni.test.csv")
+write.csv(mod.ITS.out$uni.p,"../Data/ITS/ITS.mvabund.uni.p.csv")
 
 ### Heatmap
 

@@ -49,7 +49,7 @@ custom.plot.pcoa(ord = nem.taxa.pcoa, group = factor(data.all$Rate), title = "",
 nem.taxa.pca <- rda(decostand(nem.taxa,method = "hellinger")) # PCA
 nem.troph.pca <- rda(decostand(nem.troph,method = "hellinger")) # PCA
 
-svg('../Data/Plots/Nematode_PCA.svg')
+svg('../Data/Figures/Nematode_PCA.svg')
 custom.plot.pca(ord = nem.taxa.pca, group = factor(data.all$Rate), title = "", plottype = "t")
 dev.off()
 

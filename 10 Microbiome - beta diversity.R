@@ -38,7 +38,7 @@ adonis(sqrt(otu.16S.ecto) ~ factor(Rate), data = env.16S.ecto, method='euc')
 otu.16S.ecto.pca <- rda(sqrt(otu.16S.ecto))
 custom.plot.pca(otu.16S.ecto.pca, factor(env.16S.ecto$Rate), "", "n")
 
-svg("../Data/Figures/rda_ecto_rates.svg")
+svg("../Data/Figures/pca_ecto_rates.svg")
 belle.plot.pca(otu.16S.ecto.pca, factor(env.16S.ecto$Rate), "", "n")
 dev.off()
 

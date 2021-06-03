@@ -1,7 +1,7 @@
 #Nematode composition 
 # Functional Guilds
 
-Nemfunc <- read.table("Data/N_trial_data.csv", header = TRUE, sep=',')
+Nemfunc <- read.table("../Data/N_trial_data.csv", header = TRUE, sep=',')
 
 names(Nemfunc)
 

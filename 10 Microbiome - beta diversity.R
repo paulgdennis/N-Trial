@@ -67,10 +67,10 @@ custom.plot.pca(otu.ITS.pca, env.ITS.all$Compartment, "", "n")
 otu.ITS.rda <- rda(sqrt(otu.ITS) ~ Compartment + factor(Rate), data=env.ITS.all)
 
 custom.plot.rda(otu.ITS.rda, factor(env.ITS.all$Rate), "", "n", 30, 3)
-custom.plot.rda(otu.ITS.rda, env.ITS.all$Compartment, "", "n", 30, 3)
+custom.plot.rda(otu.ITS.rda, factor(env.ITS.all$Compartment), "", "n", 30, 3)
 
 svg("../Data/Figures/rda_compartment_ITS.svg")
-belle.plot.rda(otu.ITS.rda, factor(env.ITS.all$Rate), "", "n", 30, 3)
+belle.plot.rda(otu.ITS.rda, factor(env.ITS.all$Compartment), "", "n", 30, 3)
 dev.off()
 
 # Soil
@@ -86,14 +86,22 @@ svg("../Data/Figures/rda_Soil_ITS.svg")
 belle.plot.rda(otu.ITS.soil.rda, factor(env.ITS.soil$Rate), "", "n", 30, 3)
 dev.off()
 
+
 # Ecto
 adonis(sqrt(otu.ITS.ecto) ~ factor(Rate), data = env.ITS.ecto, method='euc')
 
 otu.ITS.ecto.pca <- rda(sqrt(otu.ITS.ecto))
 custom.plot.pca(otu.ITS.ecto.pca, factor(env.ITS.ecto$Rate), "", "n")
 
-svg("../Data/Figures/rda_Ecto_ITS.svg")
+svg("../Data/Figures/pca_Ecto_ITS.svg")
 belle.plot.pca(otu.ITS.ecto.pca, factor(env.ITS.ecto$Rate), "", "n")
+dev.off()
+
+otu.ITS.ecto.rda <- rda(sqrt(otu.ITS.ecto) ~ factor(Rate), data=env.ITS.ecto)
+custom.plot.rda(otu.ITS.ecto.rda, factor(env.ITS.ecto$Rate), "", "n", 30, 3)
+
+svg("../Data/Figures/rda_Ecto_ITS.svg")
+belle.plot.rda(otu.ITS.ecto.rda, factor(env.ITS.ecto$Rate), "", "n", 30, 3)
 dev.off()
 
 # Endo

@@ -17,12 +17,38 @@ for(i in colnames(enzymes)) {
   print(cld(lsmeans(aov(enzymes[,i] ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey")))
 }
 
-#svg("C:/Users/cfors/Dropbox/Alpha/Field experiment/R/N-Trial/Plots/Enzyme_barplots.svg")
-#par(mfrow=c(3,2))
+svg("../Data/Figures/Enzyme_barplot_a.gluc.svg")
 bargraph.CI(data.all$Rate, enzymes$a.gluc)
+dev.off()
+
+cld(lsmeans(aov(enzymes$a.gluc ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey"))
+
+svg("../Data/Figures/Enzyme_barplot_b.gluc.svg")
 bargraph.CI(data.all$Rate, enzymes$B.gluc)
+dev.off()
+
+cld(lsmeans(aov(enzymes$B.gluc ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey"))
+
+svg("../Data/Figures/Enzyme_barplot_phos.svg")
 bargraph.CI(data.all$Rate, enzymes$Phos)
+dev.off()
+
+cld(lsmeans(aov(enzymes$Phos ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey"))
+
+svg("../Data/Figures/Enzyme_barplot_sulf.svg")
 bargraph.CI(data.all$Rate, enzymes$Sulf)
+dev.off()
+
+cld(lsmeans(aov(enzymes$Sulf ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey"))
+
+svg("../Data/Figures/Enzyme_barplot_chit.svg")
 bargraph.CI(data.all$Rate, enzymes$Chit)
+dev.off()
+
+cld(lsmeans(aov(enzymes$Chit ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey"))
+
+svg("../Data/Figures/Enzyme_barplot_xyl.svg")
 bargraph.CI(data.all$Rate, enzymes$Xyl)
-#dev.off()
+dev.off()
+
+cld(lsmeans(aov(enzymes$Xyl ~ factor(Rate), data= data.all), ~ factor(Rate), Letters = letters, adjust = "Tukey"))

@@ -131,6 +131,16 @@ write.csv(mod.16S.out$table,"../Data/16S/16S.mvabund.table.csv")
 write.csv(mod.16S.out$uni.test,"../Data/16S/16S.mvabund.uni.test.csv")
 write.csv(mod.16S.out$uni.p,"../Data/16S/16S.mvabund.uni.p.csv")
 
+##16S Soil
+otu.16S.soil.mvabund <- otu.16S.soil[,which(apply(otu.16S.soil*10000,2,max)>=5)]*10000
+mod.16S.soil <- manyglm(otu.16S.soil.mvabund ~ factor(env.16S.soil$Rate), family = "negative_binomial")
+plot(mod.16S.soil)
+
+mod.16S.soil.out <- anova(mod.16S.soil, p.uni = "adjusted")
+write.csv(mod.16S.soil.out$table,"../Data/16S/16S.soil.mvabund.table.csv")
+write.csv(mod.16S.soil.out$uni.test,"../Data/16S/16S.soil.mvabund.uni.test.csv")
+write.csv(mod.16S.soil.out$uni.p,"../Data/16S/16S.soil.mvabund.uni.p.csv")
+
 ##ITS
 
 otu.ITS.mvabund <- otu.ITS[,which(apply(otu.ITS*6700,2,max)>=5)]*6700

@@ -141,6 +141,27 @@ write.csv(mod.16S.soil.out$table,"../Data/16S/16S.soil.mvabund.table.csv")
 write.csv(mod.16S.soil.out$uni.test,"../Data/16S/16S.soil.mvabund.uni.test.csv")
 write.csv(mod.16S.soil.out$uni.p,"../Data/16S/16S.soil.mvabund.uni.p.csv")
 
+##16S Ecto
+otu.16S.ecto.mvabund <- otu.16S.ecto[,which(apply(otu.16S.ecto*10000,2,max)>=5)]*10000
+mod.16S.ecto <- manyglm(otu.16S.ecto.mvabund ~ factor(env.16S.ecto$Rate), family = "negative_binomial")
+plot(mod.16S.ecto)
+
+mod.16S.ecto.out <- anova(mod.16S.ecto, p.uni = "adjusted")
+write.csv(mod.16S.ecto.out$table,"../Data/16S/16S.ecto.mvabund.table.csv")
+write.csv(mod.16S.ecto.out$uni.test,"../Data/16S/16S.ecto.mvabund.uni.test.csv")
+write.csv(mod.16S.ecto.out$uni.p,"../Data/16S/16S.ecto.mvabund.uni.p.csv")
+
+##16S Endo
+otu.16S.endo.mvabund <- otu.16S.endo[,which(apply(otu.16S.endo*10000,2,max)>=5)]*10000
+mod.16S.endo <- manyglm(otu.16S.endo.mvabund ~ factor(env.16S.endo$Rate), family = "negative_binomial")
+plot(mod.16S.endo)
+
+mod.16S.endo.out <- anova(mod.16S.endo, p.uni = "adjusted")
+write.csv(mod.16S.endo.out$table,"../Data/16S/16S.endo.mvabund.table.csv")
+write.csv(mod.16S.endo.out$uni.test,"../Data/16S/16S.endo.mvabund.uni.test.csv")
+write.csv(mod.16S.endo.out$uni.p,"../Data/16S/16S.endo.mvabund.uni.p.csv")
+
+
 ##ITS
 
 otu.ITS.mvabund <- otu.ITS[,which(apply(otu.ITS*6700,2,max)>=5)]*6700
@@ -151,6 +172,36 @@ mod.ITS.out <- anova(mod.ITS, p.uni = "adjusted")
 write.csv(mod.ITS.out$table,"../Data/ITS/ITS.mvabund.table.csv")
 write.csv(mod.ITS.out$uni.test,"../Data/ITS/ITS.mvabund.uni.test.csv")
 write.csv(mod.ITS.out$uni.p,"../Data/ITS/ITS.mvabund.uni.p.csv")
+
+##ITS Soil
+otu.ITS.soil.mvabund <- otu.ITS.soil[,which(apply(otu.ITS.soil*6700,2,max)>=5)]*6700
+mod.ITS.soil <- manyglm(otu.ITS.soil.mvabund ~ factor(env.ITS.soil$Rate), family = "negative_binomial")
+plot(mod.ITS.soil)
+
+mod.ITS.soil.out <- anova(mod.ITS.soil, p.uni = "adjusted")
+write.csv(mod.ITS.soil.out$table,"../Data/ITS/ITS.soil.mvabund.table.csv")
+write.csv(mod.ITS.soil.out$uni.test,"../Data/ITS/ITS.soil.mvabund.uni.test.csv")
+write.csv(mod.ITS.soil.out$uni.p,"../Data/ITS/ITS.soil.mvabund.uni.p.csv")
+
+##ITS Ecto
+otu.ITS.ecto.mvabund <- otu.ITS.ecto[,which(apply(otu.ITS.ecto*6700,2,max)>=5)]*6700
+mod.ITS.ecto <- manyglm(otu.ITS.ecto.mvabund ~ factor(env.ITS.ecto$Rate), family = "negative_binomial")
+plot(mod.ITS.ecto)
+
+mod.ITS.ecto.out <- anova(mod.ITS.ecto, p.uni = "adjusted")
+write.csv(mod.ITS.ecto.out$table,"../Data/ITS/ITS.ecto.mvabund.table.csv")
+write.csv(mod.ITS.ecto.out$uni.test,"../Data/ITS/ITS.ecto.mvabund.uni.test.csv")
+write.csv(mod.ITS.ecto.out$uni.p,"../Data/ITS/ITS.ecto.mvabund.uni.p.csv")
+
+##ITS Endo
+otu.ITS.endo.mvabund <- otu.ITS.endo[,which(apply(otu.ITS.endo*6700,2,max)>=5)]*6700
+mod.ITS.endo <- manyglm(otu.ITS.endo.mvabund ~ factor(env.ITS.endo$Rate), family = "negative_binomial")
+plot(mod.ITS.endo)
+
+mod.OTS.endo.out <- anova(mod.ITS.endo, p.uni = "adjusted")
+write.csv(mod.OTS.endo.out$table,"../Data/ITS/ITS.endo.mvabund.table.csv")
+write.csv(mod.OTS.endo.out$uni.test,"../Data/ITS/ITS.endo.mvabund.uni.test.csv")
+write.csv(mod.OTS.endo.out$uni.p,"../Data/ITS/ITS.endo.mvabund.uni.p.csv")
 
 ### Heatmap
 
